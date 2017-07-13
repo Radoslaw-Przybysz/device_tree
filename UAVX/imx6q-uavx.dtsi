@@ -18,7 +18,6 @@
 	aliases {
 		mxcfb0 = &mxcfb1;
 		mxcfb3 = &mxcfb4;
-		ipu1 = &ipu2;
 	};
 
 	leds {
@@ -510,41 +509,14 @@
 		pinctrl_hog: hoggrp {
 			fsl,pins = <
 
-				MX6QDL_PAD_GPIO_6__GPIO1_IO06		0x17059	   /* SD CARD LED */
-				MX6QDL_PAD_SD1_DAT2__GPIO1_IO19		0x17059    /* LED1 */
+				MX6QDL_PAD_GPIO_6__GPIO1_IO06		0x17059		/* SD CARD LED */
+				MX6QDL_PAD_SD1_DAT2__GPIO1_IO19		0x17059		/* LED1 */
 				
 				/* SGTL5000 sys_mclk */
 				MX6QDL_PAD_GPIO_0__CCM_CLKO1		0x030b0
 
-				MX6QDL_PAD_DISP0_DAT14__GPIO5_IO08	0x17059    /* HDMI_SEL */
-
-				/*
-				 echo 136   > /sys/class/gpio/export
-				 echo "out" > /sys/class/gpio/gpio136/direction
-				 echo 1     > /sys/class/gpio/gpio136/value   // select HDMI OUT
-				 echo 0     > /sys/class/gpio/gpio136/value   // select HDMI IN
-				*/
- 
-
-				/* 
-				Automatically export GPIO pins (to create /sys/class/gpio/gpioXX) and assign them to gpio group, do following:
-
-				create: 
-				"nano /etc/udev/rules.d/10-local.rules"
-
-				add:
-				#set MCU_RSTINn
-				ACTION=="add", SUBSYSTEM=="gpio", PROGRAM="/bin/sh -c 'echo 16 > /sys/class/gpio/export'"
-				ACTION=="add", SUBSYSTEM=="gpio", PROGRAM="/bin/sh -c 'chown -R root:gpio /sys/class/gpio/gpio16/'"
-				ACTION=="add", SUBSYSTEM=="gpio", PROGRAM="/bin/sh -c 'chmod -R 774 /sys/class/gpio/gpio16/'"
-
-				#set MCU_ISPn
-				ACTION=="add", SUBSYSTEM=="gpio", PROGRAM="/bin/sh -c 'echo 18 > /sys/class/gpio/export'"
-				ACTION=="add", SUBSYSTEM=="gpio", PROGRAM="/bin/sh -c 'chown -R root:gpio /sys/class/gpio/gpio18/'"
-				ACTION=="add", SUBSYSTEM=="gpio", PROGRAM="/bin/sh -c 'chmod -R 774 /sys/class/gpio/gpio18/'"
-
-				*/
-
+				MX6QDL_PAD_DISP0_DAT14__GPIO5_IO08	0x17059		/* HDMI_SEL [1 -> select HDMI OUT], [0 -> select HDMI IN] */
+				
 			>;
 		};
 

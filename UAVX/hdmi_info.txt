@@ -1,7 +1,7 @@
 # assuming, that HDMI is connected to /dev/fb0
 
-# export gpio which controls HDMI MUX [ 1 -> out, 0 in ]  
-echo 136   > /sys/class/gpio/export
+# export gpio which controls HDMI MUX [ 1 -> out, 0 -> in ]  
+echo 136 > /sys/class/gpio/export
 echo "out" > /sys/class/gpio/gpio136/direction
 
 # set out mode SOM generate hdmi signals 
@@ -24,3 +24,13 @@ fbi -T 2 -d /dev/fb0 uavx_1024_600.png
 
 # draw noisy random image  
 cat /dev/urandom >/dev/fb0
+
+#
+# Automatically export GPIO pins (to create /sys/class/gpio/gpioXX) and assign them to gpio group, do following:
+# create file: 
+# "nano /etc/udev/rules.d/10-local.rules"
+# append lines to end:
+# ACTION=="add", SUBSYSTEM=="gpio", PROGRAM="/bin/sh -c 'echo 136 > /sys/class/gpio/export'"
+# ACTION=="add", SUBSYSTEM=="gpio", PROGRAM="/bin/sh -c 'chown -R root:gpio /sys/class/gpio/gpio136/'"
+# ACTION=="add", SUBSYSTEM=="gpio", PROGRAM="/bin/sh -c 'chmod -R 774 /sys/class/gpio/gpio136/'"
+# ACTION=="add", SUBSYSTEM=="gpio", PROGRAM="/bin/sh -c 'echo 1 /sys/class/gpio/gpio136/value'"
