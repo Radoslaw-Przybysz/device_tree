@@ -93,7 +93,7 @@
 		compatible = "fsl,mxc_sdc_fb";
 		disp_dev = "hdmi";
 		interface_pix_fmt = "RGB24";
-		mode_str ="1920x1080M@60";
+		mode_str ="1024x600M@60";
 		default_bpp = <24>;
 		int_clk = <0>;
 		late_init = <0>;
@@ -516,6 +516,16 @@
 				/* SGTL5000 sys_mclk */
 				MX6QDL_PAD_GPIO_0__CCM_CLKO1		0x030b0
 
+				MX6QDL_PAD_DISP0_DAT14__GPIO5_IO08	0x17059    /* HDMI_SEL */
+
+				/*
+				 echo 136   > /sys/class/gpio/export
+				 echo "out" > /sys/class/gpio/gpio136/direction
+				 echo 1     > /sys/class/gpio/gpio136/value   // select HDMI OUT
+				 echo 0     > /sys/class/gpio/gpio136/value   // select HDMI IN
+				*/
+ 
+
 				/* 
 				Automatically export GPIO pins (to create /sys/class/gpio/gpioXX) and assign them to gpio group, do following:
 
@@ -659,4 +669,3 @@
 
 	};
 };
-
