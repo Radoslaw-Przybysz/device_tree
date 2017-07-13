@@ -25,6 +25,12 @@ fbi -T 2 -d /dev/fb0 uavx_1024_600.png
 # draw noisy random image  
 cat /dev/urandom >/dev/fb0
 
+# read edid 
+cat /sys/devices/soc0/soc/20e0000.hdmi_video/edid
+
+# read hdmi mode
+cat /sys/class/graphics/fb0/mode
+
 #
 # Automatically export GPIO pins (to create /sys/class/gpio/gpioXX) and assign them to gpio group, do following:
 # create file: 
