@@ -1,28 +1,26 @@
 # assuming, that HDMI is connected to /dev/fb0
 
-# export gpio which controls HDMI MUX [ 1 -> out, 0 -> in ]  
+# export gpio which controls HDMI MUX [PCB MUX] [ 1 -> out, 0 -> in ]  
 echo 136 > /sys/class/gpio/export
 echo "out" > /sys/class/gpio/gpio136/direction
 
-# set out mode SOM generate hdmi signals 
+# set out mode, SOM generates hdmi signals 
 echo 1 > /sys/class/gpio/gpio136/value   
 
-# set in mode SOM capture hdmi signals 
+# set in mode, SOM captures hdmi signals 
 echo 0 > /sys/class/gpio/gpio136/value   
 
 # enable hdmi 
 echo 0 > /sys/class/graphics/fb0/blank
+# or disable hdmi 
+echo 1 > /sys/class/graphics/fb0/blank
 
-# disable hdmi 
-echo 0 > /sys/class/graphics/fb0/blank
-
-# set resolution  
+# update resolution  
 fbset -g 1024 600 1024 600 24
 
 # draw sample image [1024x600] 
 fbi -T 2 -d /dev/fb0 uavx_1024_600.png
-
-# draw noisy random image  
+# or draw noisy random image  
 cat /dev/urandom >/dev/fb0
 
 # read edid 
