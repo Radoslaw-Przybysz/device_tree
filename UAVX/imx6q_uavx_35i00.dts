@@ -14,7 +14,7 @@
 /dts-v1/;
 
 #include "imx6q.dtsi"
-#include "imx6q-uavx.dtsi"
+#include "imx6q_uavx_35i00.dtsi"
 
 / {
 	model = "UAVX i.MX6 Quad Board";
